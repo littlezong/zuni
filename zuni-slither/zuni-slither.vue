@@ -87,7 +87,8 @@
 				const activeStatus = this.activeStatus !== null
 				this.$emit('click', {
 					event: e,
-					activeStatus
+					activeStatus,
+					index: this.touchTarget.index
 				})
 				this.$nextTick(() => this.activeStatus = this.activeIndex)
 			},
@@ -137,7 +138,7 @@
 				// this.$emit('slide-out', !!this.touchTarget.offsetX)
 			},
 			triggerAction(index){
-				this.actions[index] && this.actions[index].trigger()
+				this.actions[index] && this.actions[index].trigger(this.touchTarget.index)
 			},
 			calcActionStyle(styleOptions){
 				const unit = this.getPlatformUnit()

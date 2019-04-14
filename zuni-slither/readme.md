@@ -83,9 +83,9 @@ actions = [{
     background: '#D65649'
   },
   // 事件
-  trigger(){
-    console.log('trigger')
+  trigger(index){
   }
+    console.log(index)
 }]
 ```
 
@@ -93,6 +93,6 @@ actions = [{
 
 | 事件名称 | 说明     | 回调参数              |
 | -------- | -------- | --------------------- |
-| click    | 点击事件 | {event, activeStatus} |
+| click    | 点击事件 | {event, activeStatus, index} |
 
-#### event 为事件对象，activeStatus 为是否存在滑块滑出
+#### event 为事件对象，activeStatus 为是否存在滑块滑出, index 为当前点击项索引
