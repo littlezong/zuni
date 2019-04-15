@@ -1,9 +1,7 @@
-## zuniSlither@1.0.0 滑动操作
+## zuniSlither@1.0.2 滑动操作
 
 uni-app 组件，适用于h5、小程序，暂不支持app。
 后续根据情况补充完善。
-
-如有问题，可加qq:921674302反馈咨询。
 
 ### 使用栗子
 
@@ -55,8 +53,8 @@ export default {
     }
   },
   methods: {
-    handleClick({event, activeStatus}){
-      console.log(event, activeStatus)
+    handleClick({event, activeStatus, index}){
+      console.log(event, activeStatus, index)
     }
   }
 }
@@ -96,3 +94,9 @@ actions = [{
 | click    | 点击事件 | {event, activeStatus, index} |
 
 #### event 为事件对象，activeStatus 为是否存在滑块滑出, index 为当前点击项索引
+
+## change log
+
+- (2019.04.15) @1.0.2 修复click事件回调参数 `activeStatus` 不正确问题
+
+- (2019.04.14) @1.0.1 添加click事件回调参数 index 字段
