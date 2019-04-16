@@ -11,7 +11,7 @@
       :style="{right: calcActionsPositionRight}">
       <view class="zuni-slither_item_action"
         v-for="(action, index) in actions"
-        :style="{width: calcActionStyle(action.style).width, color: calcActionStyle(action.style).color, background: calcActionStyle(action.style).background}"
+        :style="{width: calcActionStyle(action.style).width, color: calcActionStyle(action.style).color, background: calcActionStyle(action.style).background, opacity: calcOpacity}"
         @click="triggerAction(index)"
         :key="index">
         <text class="zuni-slither_item_action_text">
@@ -41,6 +41,10 @@ export default {
           }
         ]
       }
+    },
+    fade: {
+      type: Boolean,
+      default: false
     },
     activeIndex: {
       required: true,
@@ -72,6 +76,15 @@ export default {
     }
   },
   computed: {
+    calcOpacity() {
+      if (!this.fade) return 1
+      return this.touchTarget.isMoving ||
+        (this.activeStatus !== null &&
+          this.activeIndex === this.touchTarget.index &&
+          !this.touchTarget.isClick)
+        ? 1
+        : 0
+    },
     calcTransformX() {
       if (this.touchTarget.index !== this.activeIndex) {
         return 'transform: translate(0, 0)'
@@ -145,11 +158,11 @@ export default {
       } else {
         this.touchTarget.offsetX = -this.touchTarget.maxToSlide
         this.activeStatus = this.activeIndex
+        this.$emit('slide-out', this.touchTarget.index)
       }
       if (this.touchTarget.isClick) {
         this.handleClick(e)
       }
-      // this.$emit('slide-out', !!this.touchTarget.offsetX)
     },
     triggerAction(index) {
       this.actions[index] && this.actions[index].trigger(this.touchTarget.index)
@@ -159,7 +172,6 @@ export default {
       const actionStyle = Object.assign(
         {
           width: 180,
-          opacity: 0,
           color: '#fff',
           background: '#D65649'
         },

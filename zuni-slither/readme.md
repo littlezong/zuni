@@ -7,7 +7,7 @@ uni-app 组件，适用于h5、小程序，暂不支持app。
 
 ```js
 <template>
-<zuni-slither v-for="(data, index) in dataList" :key="index" :actions="actions" :active-index.sync="activeIndex" @click="handleClick">
+<zuni-slither v-for="(data, index) in dataList" :key="index" :actions="actions" :active-index.sync="activeIndex" :fade="true" @click="handleClick">
   <view>{{data.title}}</view>
 </zuni-slither>
 </template>
@@ -37,8 +37,8 @@ export default {
           color: 'white',
           background: 'orange'
         },
-        trigger(){
-          console.log('edit')
+        trigger(index){
+          console.log('edit', index)
         }
       }, {
         title: '删除',
@@ -46,8 +46,8 @@ export default {
           color: 'white',
           background: 'red'
         },
-        trigger(){
-          console.log('delete')
+        trigger(index){
+          console.log('delete', index)
         }
       }]
     }
@@ -67,6 +67,7 @@ export default {
 | ---------------- | ---------- | ------------ | ---- | ------ | ------ |
 | actions          | 操作行为   | Array        | 是   | ——   | 见下方 |
 | activeIndex.sync | 滑动项索引 | Number, null | 是   | ——   | null   |
+| fade         | 操作栏折叠时透明   | Boolean      | 否   | ——   | false  |
 | disabled         | 禁止滑动   | Boolean      | 否   | ——   | false  |
 
 ```js
@@ -82,8 +83,8 @@ actions = [{
   },
   // 事件
   trigger(index){
-  }
     console.log(index)
+  }
 }]
 ```
 
@@ -92,11 +93,22 @@ actions = [{
 | 事件名称 | 说明     | 回调参数              |
 | -------- | -------- | --------------------- |
 | click    | 点击事件 | {event, activeStatus, index} |
+| slide-out    | 操作行为滑出事件 | index |
 
 #### event 为事件对象，activeStatus 为是否存在滑块滑出, index 为当前点击项索引
 
 ## change log
 
-- (2019.04.15) @1.0.2 修复click事件回调参数 `activeStatus` 不正确问题
+### 2019.04.16 @1.2.0
 
-- (2019.04.14) @1.0.1 添加click事件回调参数 index 字段
+- 添加属性 `fade` ，默认为 `false`。在滑动列表与页面有间距时可设置为 `true` 隐藏操作行为。
+
+- 添加操作行为滑出回调方法 `slide-out`
+
+### 2019.04.15 @1.0.2 
+ 
+ - 修复click事件回调参数 `activeStatus` 不正确问题。
+ 
+### 2019.04.14 @1.0.1 
+
+- 添加click事件回调参数 `index` 字段。
