@@ -1,4 +1,4 @@
-## zuniSlither@1.0.2 滑动操作
+## zuniSlither@1.2.0 滑动操作
 
 uni-app 组件，适用于h5、小程序，暂不支持app。
 后续根据情况补充完善。
